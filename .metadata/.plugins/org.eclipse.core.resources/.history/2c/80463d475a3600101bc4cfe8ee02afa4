@@ -1,0 +1,33 @@
+package com.demo;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import com.entities.Product;
+import com.service.ProductService;
+
+@SpringBootApplication(scanBasePackages = { "com.demo", "com.repositories", "com.service" })
+@EntityScan(basePackages = {"com.entities"})
+public class Application implements CommandLineRunner {
+
+	private final ProductService productService;
+
+	public Application(ProductService productService) {
+		this.productService = productService;
+	}
+
+	public static void main(String[] args) {
+		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+		context.getBean(ProductRepository.class);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("started...");
+		productService.save();
+	}
+
+}

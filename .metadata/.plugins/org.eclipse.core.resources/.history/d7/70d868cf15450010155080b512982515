@@ -1,0 +1,15 @@
+package com.util;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+
+import com.dto.ProductDTO;
+import com.entities.Product;
+
+@Mapper(componentModel = "spring") // this annotation will register the interface as bean
+public interface ProductMapper {
+
+	@Mapping(target = "productId", ignore = true)
+	Product toEntity(ProductDTO dto);
+}
